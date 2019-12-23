@@ -1,0 +1,45 @@
+---
+- name: Deploying Speedy Components on Speedy Dev Server
+  hosts: dev_server
+  vars_files:
+    - vars/defaults.yml
+  tasks:
+    - name: Checking directory.
+      stat:
+        path: "{{ APPLICATION_INSTALL_DIR }}"
+      register: my_folder
+
+    - name: "echo if directory already existed"
+      debug:
+        msg: "the {{ APPLICATION_INSTALL_DIR }} directory is already existed"
+      when: my_folder.stat.exists
+
+    - name: Create {{ APPLICATION_INSTALL_DIR }} Directory to deploy/set up application
+      file:
+        path: "{{ APPLICATION_INSTALL_DIR }}"
+        state: directory
+        recurse: true
+        mode: 0755
+        group: "{{ GROUP }}"
+        owner: "{{ OWNER }}"
+      when: my_folder.stat.exists == false
+
+    - name: Create {{ APPLICATION_INSTALL_DIR }}/{{ PROJECT_NAME }} directory for application
+      file:
+        path: "{{ APPLICATION_INSTALL_DIR }}/{{ PROJECT_NAME }}"
+        state: directory
+        recurse: true
+        mode: 0755
+        group: "{{ GROUP }}"
+        owner: "{{ OWNER }}"
+
+    - name: Create docker-compose.yml from docker-compose-template.j2 Template
+      template:
+        src: docker-compose-template.j2
+        dest: "{{ APPLICATION_INSTALL_DIR }}/{{ PROJECT_NAME }}/docker-compose.yml"
+        mode: 0644
+        owner: "{{ OWNER }}"
+        group: "{{ GROUP }}"
+
+    - name: Start Speedy Containers using docker-compose command
+      shell: "cd {{ APPLICATION_INSTALL_DIR }}/{{ PROJECT_NAME }}/ && docker-compose up -d"

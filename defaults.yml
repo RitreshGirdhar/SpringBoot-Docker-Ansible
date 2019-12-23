@@ -1,0 +1,10 @@
+---
+# Microservice Directory Structure
+
+GROUP: "root"
+OWNER: "root"
+
+APPLICATION_INSTALL_DIR: "/microservices"
+PROJECT_NAME: "microservice-test"
+PROJECT_ROOT_SUBDIRS:
+  - "{{ APPLICATION_INSTALL_DIR }}/{{ PROJECT_NAME }}/logs"

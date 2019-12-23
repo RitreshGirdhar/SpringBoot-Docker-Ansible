@@ -1,0 +1,16 @@
+version: "2"
+services:
+  ms1:
+    image: {{ APPLICATION_IMAGE }}:{{ APPLICATION_IMAGE_PACKET_VERSION }}
+    restart: on-failure
+    tty: true
+    ports:
+      - 8080:9090
+    volumes:
+      - {{ INSTALL_DIR }}/{{ PROJECT_NAME }}/logs/customapi:/logs
+    networks:
+      - Network_{{ PROJECT_NAME }}
+
+networks:
+  Network_{{ PROJECT_NAME }}:
+
