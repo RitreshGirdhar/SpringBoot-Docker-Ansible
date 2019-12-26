@@ -1,8 +1,8 @@
 ---
-- name: Deploying Speedy Components on Speedy Dev Server
+- name: Deploying Microservices Components on Dev Server
   hosts: dev_server
   vars_files:
-    - vars/defaults.yml
+    - defaults.yml
   tasks:
     - name: Checking directory.
       stat:
@@ -41,5 +41,5 @@
         owner: "{{ OWNER }}"
         group: "{{ GROUP }}"
 
-    - name: Start Speedy Containers using docker-compose command
+    - name: Start Application Containers using docker-compose command
       shell: "cd {{ APPLICATION_INSTALL_DIR }}/{{ PROJECT_NAME }}/ && docker-compose up -d"

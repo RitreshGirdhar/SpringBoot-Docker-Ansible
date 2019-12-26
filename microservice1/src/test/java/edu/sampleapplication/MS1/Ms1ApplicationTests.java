@@ -1,4 +1,4 @@
-package com.test.MS1;
+package edu.sampleapplication.MS1;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
