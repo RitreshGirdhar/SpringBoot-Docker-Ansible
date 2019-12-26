@@ -137,3 +137,10 @@ Running sample-microservices docker instances
 CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                    NAMES
 6a09c306b387        ritreshgirdhar/sample-microservice-ansible:latest   "java -Djava.securit…"   2 minutes ago       Up About a minute   0.0.0.0:8080->8080/tcp   sample-microservice-ansible
 ````
+
+
+Test deployed application 
+```$xslt
+curl http://18.234.67.26:8080/v1
+ok Hello world
+```
